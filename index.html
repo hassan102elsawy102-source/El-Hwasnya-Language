@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Hawasneya Language</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Hawasneya">
+<meta name="theme-color" content="#8a5a3b">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="icon" type="image/png" href="./icon-192.png">
+<link rel="manifest" href="./manifest.json">
+<style>
+:root{
+  --ink:#1f1b16;
+  --paper:#f6ede1;
+  --paper2:#efe2cd;
+  --accent:#8a5a3b;
+  --accent2:#b97a4f;
+  --accent3:#c98a3f;
+  --line:#d8c6a8;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#f3ece0;
+    --paper:#201b15;
+    --paper2:#2a2319;
+    --accent:#d9a06b;
+    --accent2:#e8b685;
+    --accent3:#f0c389;
+    --line:#4a3f2c;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#f3ece0;
+  --paper:#201b15;
+  --paper2:#2a2319;
+  --accent:#d9a06b;
+  --accent2:#e8b685;
+  --accent3:#f0c389;
+  --line:#4a3f2c;
+}
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family: "Tahoma", "Segoe UI", sans-serif;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100%;
+  position:relative;
+  overflow-x:hidden;
+}
+.orb{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(40px);
+  opacity:0.35;
+  pointer-events:none;
+  z-index:0;
+}
+.orb1{ width:220px; height:220px; background:var(--accent2); top:-60px; right:-60px; animation:float1 9s ease-in-out infinite; }
+.orb2{ width:180px; height:180px; background:var(--accent3); bottom:-50px; left:-50px; animation:float2 11s ease-in-out infinite; }
+.orb3{ width:140px; height:140px; background:var(--accent); top:40%; left:-70px; animation:float3 13s ease-in-out infinite; }
+@keyframes float1{
+  0%,100%{ transform:translate(0,0); }
+  50%{ transform:translate(-30px,30px); }
+}
+@keyframes float2{
+  0%,100%{ transform:translate(0,0); }
+  50%{ transform:translate(25px,-25px); }
+}
+@keyframes float3{
+  0%,100%{ transform:translate(0,0) scale(1); }
+  50%{ transform:translate(20px,20px) scale(1.15); }
+}
+@media (prefers-reduced-motion: reduce){
+  .orb{ animation:none !important; }
+}
+.wrap{
+  width:100%;
+  max-width:520px;
+  padding:32px 22px 44px;
+  position:relative;
+  z-index:1;
+}
+h1{
+  font-size:30px;
+  margin:0 0 6px;
+  letter-spacing:0.5px;
+  background:linear-gradient(90deg, var(--accent), var(--accent3), var(--accent2), var(--accent));
+  background-size:300% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:shine 5s linear infinite;
+  display:inline-block;
+}
+@keyframes shine{
+  to{ background-position:-300% center; }
+}
+.sub{
+  color:var(--accent);
+  margin:0 0 20px;
+  font-size:15px;
+}
+.installbar{
+  display:none;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  background:var(--accent);
+  color:var(--paper);
+  padding:12px 16px;
+  border-radius:12px;
+  margin-bottom:18px;
+  animation:pulseGlow 2.2s ease-in-out infinite;
+}
+.installbar.show{ display:flex; }
+@keyframes pulseGlow{
+  0%,100%{ box-shadow:0 0 0 0 rgba(138,90,59,0.0); }
+  50%{ box-shadow:0 0 0 8px rgba(138,90,59,0.0); }
+}
+.installbar span{ font-size:14px; }
+.installbar button{
+  background:var(--paper);
+  color:var(--accent);
+  border:none;
+  padding:8px 14px;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:bold;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.card{
+  background:var(--paper2);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:20px;
+  position:relative;
+}
+label{
+  display:block;
+  font-size:14px;
+  margin-bottom:8px;
+  opacity:0.85;
+}
+textarea{
+  width:100%;
+  min-height:90px;
+  resize:vertical;
+  padding:12px 14px;
+  font-size:18px;
+  font-family:inherit;
+  background:var(--paper);
+  color:var(--ink);
+  border:1px solid var(--line);
+  border-radius:10px;
+  outline:none;
+  transition:border-color 0.2s ease, box-shadow 0.2s ease;
+}
+textarea:focus{
+  border-color:var(--accent2);
+  box-shadow:0 0 0 3px rgba(185,122,79,0.18);
+}
+.mode{
+  display:flex;
+  gap:8px;
+  margin:16px 0;
+}
+.mode button{
+  flex:1;
+  padding:10px;
+  border-radius:9px;
+  border:1px solid var(--line);
+  background:var(--paper);
+  color:var(--ink);
+  font-size:14px;
+  cursor:pointer;
+  transition:transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+}
+.mode button:active{ transform:scale(0.94); }
+.mode button.active{
+  background:var(--accent);
+  color:var(--paper);
+  border-color:var(--accent);
+}
+.result{
+  margin-top:18px;
+}
+.result .box{
+  background:var(--paper);
+  border:1px dashed var(--line);
+  border-radius:10px;
+  padding:14px;
+  font-size:20px;
+  min-height:28px;
+  word-break:break-word;
+  letter-spacing:0.5px;
+  position:relative;
+  overflow:hidden;
+}
+.result .box.flash::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(100deg, transparent 30%, rgba(217,160,107,0.4) 50%, transparent 70%);
+  transform:translateX(-120%);
+  animation:sweep 0.7s ease;
+}
+@keyframes sweep{
+  to{ transform:translateX(120%); }
+}
+.result .box.pop{
+  animation:popBox 0.4s cubic-bezier(.2,1.4,.4,1);
+}
+@keyframes popBox{
+  0%{ opacity:0; transform:scale(0.92) translateY(6px); }
+  100%{ opacity:1; transform:scale(1) translateY(0); }
+}
+.spark{
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+  background:var(--accent2);
+  animation:sparkFly 0.75s ease-out forwards;
+}
+@keyframes sparkFly{
+  0%{ opacity:1; transform:translate(0,0) scale(1); }
+  100%{ opacity:0; transform:translate(var(--dx), var(--dy)) scale(0.3); }
+}
+@media (prefers-reduced-motion: reduce){
+  h1, .result .box.flash::after, .result .box.pop, .spark, .installbar{ animation:none !important; }
+}
+.copybtn{
+  margin-top:10px;
+  padding:8px 16px;
+  border-radius:8px;
+  border:1px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
+  font-size:13px;
+  cursor:pointer;
+  transition:transform 0.12s ease;
+}
+.copybtn:active{
+  background:var(--accent);
+  color:var(--paper);
+  transform:scale(0.95);
+}
+</style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<div class="wrap">
+  <h1>El Hawasneya Language</h1>
+  <p class="sub">كل حرف يتبدّل بالحرف اللي بعده</p>
+
+  <div class="installbar" id="installBar">
+    <span>ثبّت التطبيق على هاتفك</span>
+    <button id="installBtn">تثبيت</button>
+  </div>
+
+  <div class="card">
+    <label for="input">اكتب هنا</label>
+    <textarea id="input" placeholder="اكتب كلمة أو جملة..."></textarea>
+
+    <div class="mode">
+      <button id="btnEncode" class="active">تشفير</button>
+      <button id="btnDecode">فك التشفير</button>
+    </div>
+
+    <div class="result">
+      <label>الناتج</label>
+      <div class="box" id="output">—</div>
+      <button class="copybtn" id="copyBtn">نسخ</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const alphabet = "ابتثجحخدذرزسشصضطظعغفقكلمنهوي";
+const input = document.getElementById('input');
+const output = document.getElementById('output');
+const btnEncode = document.getElementById('btnEncode');
+const btnDecode = document.getElementById('btnDecode');
+const copyBtn = document.getElementById('copyBtn');
+const installBar = document.getElementById('installBar');
+const installBtn = document.getElementById('installBtn');
+
+let mode = 'encode';
+
+function shiftChar(ch, dir){
+  const idx = alphabet.indexOf(ch);
+  if(idx === -1) return ch;
+  const len = alphabet.length;
+  const newIdx = (idx + dir + len) % len;
+  return alphabet[newIdx];
+}
+
+function transform(text, dir){
+  let result = '';
+  for(const ch of text){
+    result += shiftChar(ch, dir);
+  }
+  return result;
+}
+
+function burstSparks(){
+  const rect = output.getBoundingClientRect();
+  const count = 10;
+  for(let i=0;i<count;i++){
+    const s = document.createElement('div');
+    s.className = 'spark';
+    const size = 4 + Math.random()*5;
+    s.style.width = size+'px';
+    s.style.height = size+'px';
+    s.style.left = (rect.width/2) + 'px';
+    s.style.top = (rect.height/2) + 'px';
+    const angle = Math.random()*Math.PI*2;
+    const dist = 30 + Math.random()*40;
+    s.style.setProperty('--dx', Math.cos(angle)*dist + 'px');
+    s.style.setProperty('--dy', Math.sin(angle)*dist + 'px');
+    output.appendChild(s);
+    setTimeout(() => s.remove(), 800);
+  }
+}
+
+function update(){
+  const text = input.value;
+  if(!text){
+    output.textContent = '—';
+    output.classList.remove('flash','pop');
+    return;
+  }
+  const dir = mode === 'encode' ? 1 : -1;
+  const result = transform(text, dir);
+  output.textContent = result;
+  output.classList.remove('flash','pop');
+  void output.offsetWidth;
+  output.classList.add('flash','pop');
+  burstSparks();
+}
+
+btnEncode.addEventListener('click', () => {
+  mode = 'encode';
+  btnEncode.classList.add('active');
+  btnDecode.classList.remove('active');
+  update();
+});
+
+btnDecode.addEventListener('click', () => {
+  mode = 'decode';
+  btnDecode.classList.add('active');
+  btnEncode.classList.remove('active');
+  update();
+});
+
+input.addEventListener('input', update);
+
+copyBtn.addEventListener('click', async () => {
+  const text = output.textContent;
+  if(!text || text === '—') return;
+  try{
+    await navigator.clipboard.writeText(text);
+    copyBtn.textContent = 'تم النسخ ✓';
+    setTimeout(() => copyBtn.textContent = 'نسخ', 1200);
+  }catch(e){
+    copyBtn.textContent = 'تعذر النسخ';
+    setTimeout(() => copyBtn.textContent = 'نسخ', 1200);
+  }
+});
+
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBar.classList.add('show');
+});
+installBtn.addEventListener('click', async () => {
+  if(!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  installBar.classList.remove('show');
+});
+window.addEventListener('appinstalled', () => {
+  installBar.classList.remove('show');
+});
+</script>
+
+<script>
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+</body>
+</html>
