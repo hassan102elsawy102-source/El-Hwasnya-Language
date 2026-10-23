@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hawasneya-app-v1';
+const CACHE_NAME = 'hawasney-app-v1';
 const APP_FILES = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', event => {
